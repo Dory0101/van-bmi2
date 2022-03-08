@@ -1,5 +1,7 @@
 package com.example.bmi2
 
+import android.content.DialogInterface
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -46,8 +48,15 @@ class MainActivity : AppCompatActivity() {
         AlertDialog.Builder(this)
             .setTitle("Hello")
             .setMessage("Your BMI is $bmi")
-            .setPositiveButton("OK",null)
+            .setPositiveButton("OK") { dialog, which ->
+                //anonymous class
+                binding.edWeight.setText("")
+                binding.edHeight.setText("")
+            }
 //            .show()
         binding.tvBmi.text = "Your BMI is ${bmi.roundToInt()}"
+        val intent = Intent(this, ResultActivity::class.java)
+        intent.putExtra("BMI_EXTRA", bmi)
+        startActivity(intent)
     }
 }

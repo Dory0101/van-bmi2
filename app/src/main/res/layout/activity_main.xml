@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg"
     android:onClick="bmi"
     tools:context=".MainActivity">
 
@@ -11,8 +12,8 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="120dp"
+        android:layout_marginTop="70dp"
         android:text="Weight"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintStart_toStartOf="parent"
@@ -58,17 +59,17 @@
         android:id="@+id/b_bmi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:onClick="bmi"
         android:text="Calculate BMI"
         app:layout_constraintStart_toStartOf="@+id/ed_height"
-        app:layout_constraintTop_toBottomOf="@+id/ed_height" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_bmi" />
 
     <Button
         android:id="@+id/b_help"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="8dp"
         android:text="Help"
         app:layout_constraintStart_toStartOf="@+id/b_bmi"
         app:layout_constraintTop_toBottomOf="@+id/b_bmi" />
@@ -77,9 +78,26 @@
         android:id="@+id/tv_bmi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        app:layout_constraintBottom_toBottomOf="@+id/b_bmi"
-        app:layout_constraintStart_toEndOf="@+id/b_bmi"
-        app:layout_constraintTop_toTopOf="@+id/b_bmi" />
+        app:layout_constraintStart_toStartOf="@+id/ed_height"
+        app:layout_constraintTop_toBottomOf="@+id/ed_height" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="240dp"
+        android:layout_height="240dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.482"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline5"
+        app:srcCompat="@drawable/number_1" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.6" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
