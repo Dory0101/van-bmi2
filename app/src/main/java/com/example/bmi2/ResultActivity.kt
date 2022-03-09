@@ -4,8 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
-import com.example.bmi2.databinding.ActivityMainBinding
 import com.example.bmi2.databinding.ActivityResultBinding
 
 class ResultActivity : AppCompatActivity() {
@@ -22,14 +20,14 @@ class ResultActivity : AppCompatActivity() {
             val name = binding.edName.text.toString()
             val data = Intent()
             //Java usage
-            data.putExtra("NAME", name)
+            data.putExtra(Extras.NAME, name)
             setResult(RESULT_OK, data)       //"result ok" means it have data
             finish()
         }
     }
 
     private fun showBmi() {
-        val bmi = intent.getFloatExtra("BMI_EXTRA", 0f)
+        val bmi = intent.getFloatExtra(Extras.BMI, 0f)
         Log.d(TAG, "BMI: $bmi")
         binding.bmiDisplay.text = bmi.toString()
     }
