@@ -12,7 +12,8 @@ import com.example.bmi2.databinding.ActivityMainBinding
 import kotlin.math.roundToInt
 
 class MainActivity : AppCompatActivity() {
-
+    private val TAG = MainActivity::class.java.simpleName
+    val REQUSET_DISPLAY_BMI = 16
     lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,8 +56,23 @@ class MainActivity : AppCompatActivity() {
             }
 //            .show()
         binding.tvBmi.text = "Your BMI is ${bmi.roundToInt()}"
+//        val intent = Intent(this, ResultActivity::class.java)
+//        intent.putExtra("BMI_EXTRA", bmi)
+////        startActivity(intent)
+//        startActivityForResult(intent, REQUSET_DISPLAY_BMI)
+
         val intent = Intent(this, ResultActivity::class.java)
         intent.putExtra("BMI_EXTRA", bmi)
-        startActivity(intent)
+        startActivityForResult(intent, REQUSET_DISPLAY_BMI)
+    }
+
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        Log.d(TAG, "onActivityResult")
+        if (requestCode == REQUSET_DISPLAY_BMI && resultCode == RESULT_OK) {
+            Log.d(TAG, "back from ResultActivity")
+        }
     }
 }

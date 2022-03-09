@@ -1,18 +1,36 @@
 package com.example.bmi2
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import com.example.bmi2.databinding.ActivityMainBinding
+import com.example.bmi2.databinding.ActivityResultBinding
 
 class ResultActivity : AppCompatActivity() {
     companion object {
         private val TAG = ResultActivity::class.java.simpleName
     }
-
+    private lateinit var binding: ActivityResultBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_result)
+        binding = ActivityResultBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        showBmi()
+        binding.bDone.setOnClickListener{
+            val name = binding.edName.text.toString()
+            val data = Intent()
+            //Java usage
+            data.putExtra("NAME", name)
+            setResult(RESULT_OK, data)       //"result ok" means it have data
+            finish()
+        }
+    }
+
+    private fun showBmi() {
         val bmi = intent.getFloatExtra("BMI_EXTRA", 0f)
         Log.d(TAG, "BMI: $bmi")
+        binding.bmiDisplay.text = bmi.toString()
     }
 }
