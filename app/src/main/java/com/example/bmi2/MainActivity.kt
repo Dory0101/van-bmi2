@@ -10,6 +10,8 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.example.bmi2.databinding.ActivityMainBinding
 import kotlin.math.roundToInt
 
@@ -17,6 +19,7 @@ class MainActivity : AppCompatActivity() {
     private val TAG = MainActivity::class.java.simpleName
     val REQUSET_DISPLAY_BMI = 16
     lateinit var binding: ActivityMainBinding
+    lateinit var viewModel: BmiViewModel
     var launcher = registerForActivityResult(NameContract()){ name ->
         Log.d(TAG, "$name")
     }
@@ -25,47 +28,25 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        viewModel = ViewModelProvider(this).get(BmiViewModel::class.java)
+        viewModel.bmi.observe(this) { bmi ->
+            binding.tvBmi.setText(bmi.toString())
+        }
         binding.bHelp.setOnClickListener {
             Log.d("MainActivity", "help clicked")
         }
     }
 
     fun bmi(view: View) {
-//        Log.v() //verble???
+//        Log.v() //verbose
         Log.d("MainActivity", "clicked") //debug after online delete
 //        Log.i() //information after online sometimes delete
 //        Log.w() //warining
 //        Log.e() //error
-        println("hahaha")
         var weight = binding.edWeight.text.toString().toFloat()
         var height = binding.edHeight.text.toString().toFloat()
-        var bmi = weight/(height*height)
-        Log.d("MainActivity", bmi.toString())
-        Toast.makeText(this, "Your BMI $bmi", Toast.LENGTH_LONG).show()
-//        println(weight/(height*height))
-//        val builder = AlertDialog.Builder(this)
-//        builder.setTitle("Hello")
-//        builder.setMessage("Your BMI is $bmi")
-//        builder.setPositiveButton("OK", null)
-//        val dialog = builder.create()
-//        dialog.show()
-        AlertDialog.Builder(this)
-            .setTitle("Hello")
-            .setMessage("Your BMI is $bmi")
-            .setPositiveButton("OK") { dialog, which ->
-                //anonymous class
-                binding.edWeight.setText("")
-                binding.edHeight.setText("")
-            }
-//            .show()
-        binding.tvBmi.text = "Your BMI is ${bmi.roundToInt()}"
-//        val intent = Intent(this, ResultActivity::class.java)
-//        intent.putExtra("BMI_EXTRA", bmi)
-//        startActivity(intent)
-//        startActivityForResult(intent, REQUSET_DISPLAY_BMI)
-        launcher.launch(bmi)
+        viewModel.set(weight, height)
     }
-
 
 //    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 //        super.onActivityResult(requestCode, resultCode, data)
