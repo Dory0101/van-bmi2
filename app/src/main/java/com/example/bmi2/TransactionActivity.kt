@@ -3,15 +3,11 @@ package com.example.bmi2
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bmi2.databinding.ActivityTransactionBinding
 import com.example.bmi2.databinding.RowTransactionBinding
 import com.google.gson.Gson
-import org.json.JSONArray
-import org.json.JSONObject
 import java.net.URL
 import kotlin.concurrent.thread
 

@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContract
+import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -19,7 +20,8 @@ class MainActivity : AppCompatActivity() {
     private val TAG = MainActivity::class.java.simpleName
     val REQUSET_DISPLAY_BMI = 16
     lateinit var binding: ActivityMainBinding
-    lateinit var viewModel: BmiViewModel
+//    lateinit var viewModel: BmiViewModel
+    val viewModel by viewModels<BmiViewModel>()
     var launcher = registerForActivityResult(NameContract()){ name ->
         Log.d(TAG, "$name")
     }
@@ -28,7 +30,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        viewModel = ViewModelProvider(this).get(BmiViewModel::class.java)
+//        viewModel = ViewModelProvider(this).get(BmiViewModel::class.java)
         viewModel.bmi.observe(this) { bmi ->
             binding.tvBmi.setText(bmi.toString())
         }
@@ -65,7 +67,13 @@ class MainActivity : AppCompatActivity() {
                 return "no Name"
             }
         }
-        override fun createIntent(context: Context, input: Float?): Intent {
+//        override fun createIntent(context: Context, input: Float?): Intent {
+//            val intent = Intent(context, ResultActivity::class.java)
+//                .putExtra(Extras.BMI, input)
+//            return intent
+//        }
+
+        override fun createIntent(context: Context, input: Float): Intent {
             val intent = Intent(context, ResultActivity::class.java)
                 .putExtra(Extras.BMI, input)
             return intent
